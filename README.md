@@ -17,6 +17,12 @@ you can't use h,l motions
 ```vim
 let g:be_vimmer_disable_backspace = 1
 ```
+To disable deletion operations in insert mode
+
+```vim
+ToggleBeVimmerBackspace
+```
+To toggle the insert mode deletion operations on and off
 
 ### Example
 if you want to move 1/10 line up use 1k/10k
