@@ -1,4 +1,4 @@
-[#](#) BE-VIMMER
+# BE-VIMMER
 
 ## Description
 this plugin is created to void the unwanted usage of j,k motions
@@ -23,6 +23,11 @@ To disable deletion operations in insert mode
 ToggleBeVimmerBackspace
 ```
 To toggle the insert mode deletion operations on and off
+
+```vim
+ToggleBeVimmer
+```
+To toggle hjkl motions
 
 ### Example
 if you want to move 1/10 line up use 1k/10k
