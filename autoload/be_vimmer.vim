@@ -51,3 +51,29 @@ function! be_vimmer#ToggleBeVimmer() abort
         let g:be_vimmer_enable = 1
     endif
 endfunction
+
+function! be_vimmer#notify(str) abort
+  if g:be_vimmer_enable == 1
+    if has('nvim')
+      let curpos = getcurpos()
+      let pos = winnr()->screenpos(curpos[1], curpos[2])
+      let winid = winnr()->win_getid()
+      let cmd = 'lua require("be_vimmer_popup").create("' . a:str . '", '. pos['row']. ', '. pos['col'] . ')'
+      call execute(cmd)
+      call win_gotoid(winid)
+    else
+      call popup_atcursor(a:str, #{moved: "any"})
+    endif
+  endif
+endfunction
+
+function! be_vimmer#removeNotify()
+  if has('nvim') && g:be_vimmer_enable == 1
+    lua require("be_vimmer_popup").remove()
+  endif
+endfunction
+
+function! be_vimmer#UpdateWaitTime(time) abort
+    let time = str2nr(a:time)
+    let &updatetime = time
+endfunction

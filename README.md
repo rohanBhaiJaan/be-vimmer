@@ -1,4 +1,4 @@
-# BE-VIMMER
+# BE-VIMMER V 1.3.0
 
 ## Description
 this plugin is created to void the unwanted usage of j,k motions
@@ -20,14 +20,23 @@ let g:be_vimmer_disable_backspace = 1
 To disable deletion operations in insert mode
 
 ```vim
-ToggleBeVimmerBackspace
+:ToggleBeVimmerBackspace
 ```
 To toggle the insert mode deletion operations on and off
 
 ```vim
-ToggleBeVimmer
+:ToggleBeVimmer
 ```
-To toggle hjkl motions
+TO TOGGLE HJKL MOTIONS
+
+you get a popup notification if you won't leave insert mode for 4 sec
+and not pressing any key for 4 sec
+you can change the duration using this two methods
+```vim
+let g:be_vimmer_wait_time = 1000
+:BeVimmerUpdateWaitTime 1000
+```
+default is 4000 or value of your updatetime property
 
 ### Example
 if you want to move 1/10 line up use 1k/10k
