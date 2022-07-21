@@ -4,8 +4,8 @@ endif
 
 let g:be_vimmer = 1
 
-if !exists("g:be_vimmer_disable_backspace")
-    let g:be_vimmer_disable_backspace = 0
+if !exists("g:be_vimmer_insert_mode_deletion")
+    let g:be_vimmer_insert_mode_deletion = 0
 endif
 
 if !exists("g:be_vimmer_enable")
@@ -17,7 +17,7 @@ if !exists("g:be_vimmer_wait_time")
     let g:be_vimmer_wait_time = &updatetime
 else
     if g:be_vimmer_wait_time != &updatetime && g:be_vimmer_enable == 0
-        echoerr "first enable be-vimmer.vim"
+        call be_vimmer#ErrorMsg("First ON be-vimmer.vim")
     else
         call be_vimmer#UpdateWaitTime(g:be_vimmer_wait_time)
     endif
@@ -28,8 +28,8 @@ inoremap <Plug>BEVIMMER_DEL <DEL>
 inoremap <Plug>BEVIMMER_C_H <C-h>
 inoremap <Plug>BEVIMMER_C_W <C-w>
 
-if g:be_vimmer_disable_backspace == 1
-    call be_vimmer#DisableBackspace()
+if g:be_vimmer_insert_mode_deletion == 0 && g:be_vimmer_enable == 1
+    call be_vimmer#DisableInsertModeDeletion()
 endif
 
 nnoremap <expr> <silent> j be_vimmer#Move('j')
@@ -37,7 +37,7 @@ nnoremap <expr> <silent> k be_vimmer#Move('k')
 nnoremap <expr> <silent> l be_vimmer#Disable('l')
 nnoremap <expr> <silent> h be_vimmer#Disable('h')
 
-command! -nargs=0 ToggleBeVimmerBackspace call be_vimmer#ToggleBackspace()
+command! -nargs=0 ToggleBeVimmerInsertModeDeletion call be_vimmer#ToggleInsertModeDeletion()
 command! -nargs=0 ToggleBeVimmer call be_vimmer#ToggleBeVimmer()
 command! -nargs=1 BeVimmerUpdateWaitTime call be_vimmer#UpdateWaitTime(<args>)
 

@@ -1,4 +1,10 @@
-function! be_vimmer#Move(cmd)
+function! be_vimmer#ErrorMsg(str) abort
+    echohl ErrorMsg
+    echomsg a:str
+    echohl Normal
+endfunction
+
+function! be_vimmer#Move(cmd) abort
     if g:be_vimmer_enable == 1
         if v:count > 0
             return a:cmd
@@ -9,7 +15,7 @@ function! be_vimmer#Move(cmd)
     endif
 endfunction
 
-function! be_vimmer#Disable(cmd)
+function! be_vimmer#Disable(cmd) abort
     if g:be_vimmer_enable == 1
         if v:count > 0
             return ''
@@ -20,27 +26,27 @@ function! be_vimmer#Disable(cmd)
     endif
 endfunction
 
-function! be_vimmer#EnableBackspace() abort
+function! be_vimmer#EnableInsertModeDeletion() abort
     inoremap <BS>  <Plug>BEVIMMER_BS
     inoremap <Del> <Plug>BEVIMMER_DEL
     inoremap <C-w> <Plug>BEVIMMER_C_W
     inoremap <C-h> <Plug>BEVIMMER_C_H
 endfunction
 
-function! be_vimmer#DisableBackspace() abort
+function! be_vimmer#DisableInsertModeDeletion() abort
     inoremap <BS>  <Nop>
     inoremap <Del> <Nop>
     inoremap <C-w> <Nop>
     inoremap <C-h> <Nop>
 endfunction
 
-function! be_vimmer#ToggleBackspace() abort
-    if g:be_vimmer_disable_backspace == 1
-        let g:be_vimmer_disable_backspace = 0
-        call be_vimmer#EnableBackspace()
+function! be_vimmer#ToggleInsertModeDeletion() abort
+    if g:be_vimmer_insert_mode_deletion == 1
+        let g:be_vimmer_insert_mode_deletion = 0
+        call be_vimmer#EnableInsertModeDeletion()
     else
-        let g:be_vimmer_disable_backspace = 1
-        call be_vimmer#DisableBackspace()
+        let g:be_vimmer_insert_mode_deletion = 1
+        call be_vimmer#DisableInsertModeDeletion()
     endif
 endfunction
 
@@ -55,19 +61,15 @@ endfunction
 function! be_vimmer#notify(str) abort
   if g:be_vimmer_enable == 1
     if has('nvim')
-      let curpos = getcurpos()
-      let pos = winnr()->screenpos(curpos[1], curpos[2])
-      let winid = winnr()->win_getid()
-      let cmd = 'lua require("be_vimmer_popup").create("' . a:str . '", '. pos['row']. ', '. pos['col'] . ')'
-      call execute(cmd)
-      call win_gotoid(winid)
+      let cmd = printf('lua require("be_vimmer_popup").create("%s")', a:str)
+      exec cmd
     else
       call popup_atcursor(a:str, #{moved: "any"})
     endif
   endif
 endfunction
 
-function! be_vimmer#removeNotify()
+function! be_vimmer#removeNotify() abort
   if has('nvim') && g:be_vimmer_enable == 1
     lua require("be_vimmer_popup").remove()
   endif
