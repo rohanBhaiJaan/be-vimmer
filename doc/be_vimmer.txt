@@ -1,0 +1,32 @@
+================================================================================
+|be_vimmer|
+|be_vimmer_deletion|
+|be_vimmer_notify|
+|be_vimmer_wait_time|
+								   *be_vimmer*
+this plugin will force you to use other motions than h,l
+also to use j, k motions with numbers
+
+							  *be_vimmer_deletion*
+you can disable backspace and other deletion methods in insert mode
+just add this to your .vimrc or init.vim 
+`let g:be_vimmer_insert_mode_deletion = 0`
+				      [or]
+you can toggle using below command
+`:ToggleBeVimmerInsertModeDeletion`
+
+							    *be_vimmer_notify*
+it will notify you if you are being in insert mode for too long without
+writing code or typing if the be_vimmer_enable variable is 1
+you can change the notification interval using |be_vimmer_wait_time|
+
+							 *be_vimmer_wait_time*
+you can change the notification interval by adding below line to your vimrc or
+init.vim
+`let g:be_vimmer_wait_time = 1000` 
+it's just update your updatetime property.
+So the default is your updatetime value
+				      [or]
+you can use `:BeVimmerUpdateWaitTime` command to change the notification interval
+
+vim:tw=78:ts=8:noet:ft=help:norl:

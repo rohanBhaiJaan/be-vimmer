@@ -5,7 +5,7 @@ endif
 let g:be_vimmer = 1
 
 if !exists("g:be_vimmer_insert_mode_deletion")
-    let g:be_vimmer_insert_mode_deletion = 0
+    let g:be_vimmer_insert_mode_deletion = 1
 endif
 
 if !exists("g:be_vimmer_enable")
