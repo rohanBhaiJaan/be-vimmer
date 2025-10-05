@@ -13,19 +13,20 @@ function! be_vimmer#ErrorMsg(str) abort
 endfunction
 
 function be_vimmer#ToggleAvailabeKey(cmd) abort
-  let s:keys[a:cmd] = (s:keys[a:cmd] + 1) % 2
+  let s:keys[a:cmd] = 0
 endfunction
 
-function! be_vimmer#Move(cmd) abort
+function! be_vimmer#Move(key) abort
     if g:be_vimmer_enable != 1 || v:count > 0
-      return a:cmd
+      return a:key
     endif
-    if ! s:keys[a:cmd]
-      call be_vimmer#ToggleAvailabeKey(a:cmd)
-      call timer_start(5000, {tid -> be_vimmer#ToggleAvailabeKey(a:cmd)})
-      return a:cmd
+    if s:keys[a:key] < g:be_vimmer_chances
+       let value = s:keys[a:key]
+       call map(s:keys, {k, v -> k != a:key ? 0  : value} )
+       let s:keys[a:key] += 1
+      return a:key
     endif
-    return ""
+      return ""
 endfunction
 
 function! be_vimmer#Disable(cmd) abort
@@ -64,7 +65,7 @@ function! be_vimmer#ToggleBeVimmer() abort
 endfunction
 
 function! be_vimmer#notify(str) abort
-  if g:be_vimmer_enable != 1
+    if g:be_vimmer_enable != 1
       return
   endif
   if has('nvim')
