@@ -5,8 +5,8 @@ inoremap <Plug>BEVIMMER_C_W <C-w>
 
 nnoremap <expr> <silent> j be_vimmer#Move('j')
 nnoremap <expr> <silent> k be_vimmer#Move('k')
-nnoremap <expr> <silent> l be_vimmer#Disable('l')
-nnoremap <expr> <silent> h be_vimmer#Disable('h')
+nnoremap <expr> <silent> l be_vimmer#Move('l')
+nnoremap <expr> <silent> h be_vimmer#Move('h')
 
 if g:be_vimmer_insert_mode_deletion == 1 && g:be_vimmer_enable == 1
   call be_vimmer#DisableInsertModeDeletion()

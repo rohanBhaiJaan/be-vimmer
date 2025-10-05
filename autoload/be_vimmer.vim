@@ -1,11 +1,28 @@
+let s:keys = { 'k': 0, 'j': 0 , 'h': 0, 'l': 0 }
+
+function be_vimmer#Setup(insert_mode_deletion, wait_time)
+  let g:be_vimmer_enable = 1
+  let g:be_vimmer_insert_mode_deletion = a:insert_mode_deletion
+  let g:be_vimmer_wait_time = a:wait_time 
+endfunction
+
 function! be_vimmer#ErrorMsg(str) abort
     echohl ErrorMsg
     echomsg a:str
     echohl Normal
 endfunction
 
+function be_vimmer#ToggleAvailabeKey(cmd) abort
+  let s:keys[a:cmd] = (s:keys[a:cmd] + 1) % 2
+endfunction
+
 function! be_vimmer#Move(cmd) abort
     if g:be_vimmer_enable != 1 || v:count > 0
+      return a:cmd
+    endif
+    if ! s:keys[a:cmd]
+      call be_vimmer#ToggleAvailabeKey(a:cmd)
+      call timer_start(5000, {tid -> be_vimmer#ToggleAvailabeKey(a:cmd)})
       return a:cmd
     endif
     return ""
