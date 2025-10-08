@@ -33,6 +33,8 @@ command! -nargs=1 BeVimmerUpdateWaitTime call be_vimmer#UpdateWaitTime(<args>)
 augroup BE_VIMMER
     autocmd!
     autocmd CursorHoldI *.* call be_vimmer#notify("leave insert mode")
+    autocmd InsertLeave *.* call be_vimmer#ToggleAllAvailabeKey()
+    autocmd BufEnter *.* call be_vimmer#ToggleAllAvailabeKey()
     if has('nvim')
       autocmd CursorMovedI *.* call be_vimmer#removeNotify()
       autocmd InsertLeave *.* call be_vimmer#removeNotify()

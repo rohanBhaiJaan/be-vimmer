@@ -12,8 +12,8 @@ function! be_vimmer#ErrorMsg(str) abort
     echohl Normal
 endfunction
 
-function be_vimmer#ToggleAvailabeKey(cmd) abort
-  let s:keys[a:cmd] = 0
+function be_vimmer#ToggleAllAvailabeKey() abort
+  call map(s:keys, {k, v -> 0 } )
 endfunction
 
 function! be_vimmer#Move(key) abort
